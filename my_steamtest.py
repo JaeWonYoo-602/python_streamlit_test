@@ -64,4 +64,4 @@ st.image('C:/Users/dbwod/Desktop/pypy/data/xxxdd.jpg')
 |A|123456|
 |B|789456|
 '''
-#
+
