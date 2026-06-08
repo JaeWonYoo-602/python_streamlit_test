@@ -16,7 +16,7 @@ import streamlit as st
 import streamlit.components.v1 as components
 
 
-plt.rcParams["font.family"] = ["Malgun Gothic", "Arial", "sans-serif"]
+plt.rcParams["font.family"] = ["DejaVu Sans", "Arial", "sans-serif"]
 plt.rcParams["axes.unicode_minus"] = False
 
 BASE_DIR = Path(__file__).resolve().parent
@@ -1621,7 +1621,7 @@ def render_case_comparison(
     with st.container(key="case_plot_band"):
         left, arrow, right = st.columns([1, 0.13, 1], vertical_alignment="center")
         with left:
-            st.pyplot(make_case_plot(normal_freq, normal_amp, "정상 상태 진폭-주파수 그래프"), width="stretch")
+            st.pyplot(make_case_plot(normal_freq, normal_amp, "Normal condition amplitude-frequency graph"), width="stretch")
             st.dataframe(top_frequency_table(normal_freq, normal_amp), width="stretch", height=240)
         with arrow:
             render_html('<div class="arrow-separator">→</div>')
@@ -1658,12 +1658,12 @@ def render_case1_interactive() -> None:
     normal_freq, normal_amp = get_case_columns("shaft_frq", "shaft_hlth")
     if current_angle == 0.4:
         abnormal_freq, abnormal_amp = get_case_columns("shaft_frq", "shaft_0.4")
-        render_case_comparison(normal_freq, normal_amp, abnormal_freq, abnormal_amp, "0.4도 비정상 상태 진폭-주파수 그래프")
+        render_case_comparison(normal_freq, normal_amp, abnormal_freq, abnormal_amp, "0.4 deg abnormal condition amplitude-frequency graph")
     elif current_angle == 0.8:
         abnormal_freq, abnormal_amp = get_case_columns("shaft_frq", "shaft_0.8")
-        render_case_comparison(normal_freq, normal_amp, abnormal_freq, abnormal_amp, "0.8도 비정상 상태 진폭-주파수 그래프")
+        render_case_comparison(normal_freq, normal_amp, abnormal_freq, abnormal_amp, "0.8 deg abnormal condition amplitude-frequency graph")
     else:
-        render_case_comparison(normal_freq, normal_amp, None, None, "비정상 상태 진폭-주파수 그래프", show_abnormal=False)
+        render_case_comparison(normal_freq, normal_amp, None, None, "Abnormal condition amplitude-frequency graph", show_abnormal=False)
 
 
 def render_case1_page() -> None:
@@ -1679,7 +1679,7 @@ def render_case2_page() -> None:
 
     normal_freq, normal_amp = get_case_columns("bearing_frq", "bearing_hlth")
     abnormal_freq, abnormal_amp = get_case_columns("bearing_frq", "bearing_unhlth")
-    render_case_comparison(normal_freq, normal_amp, abnormal_freq, abnormal_amp, "비정상 상태 진폭-주파수 그래프")
+    render_case_comparison(normal_freq, normal_amp, abnormal_freq, abnormal_amp, "Abnormal condition amplitude-frequency graph")
     render_footer()
 
 
@@ -1689,6 +1689,11 @@ def render_case3_interactive() -> None:
         "mass": "편심 하중",
         "crack": "균열",
         "bolt": "체결 불량",
+    }
+    mode_to_plot_label = {
+        "mass": "Eccentric mass",
+        "crack": "Crack",
+        "bolt": "Bolt looseness",
     }
     mode_to_column = {
         "mass": "wind_m",
@@ -1725,7 +1730,7 @@ def render_case3_interactive() -> None:
         normal_amp,
         abnormal_freq,
         abnormal_amp,
-        f"{mode_to_label[current_mode]} 비정상 상태 진폭-주파수 그래프",
+        f"{mode_to_plot_label[current_mode]} abnormal condition amplitude-frequency graph",
     )
 
 
